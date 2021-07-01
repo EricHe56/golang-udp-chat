@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
+	"github.com/nu7hatch/gouuid"
+	"golang-udp-chat/common"
 	"net"
 	"os"
 	"strconv"
 	"strings"
-	"github.com/digitalmarc/go/udp-chat/common"
-	"github.com/nu7hatch/gouuid"
 )
 
 const (
-	port string = ":1200"
+	port string = ":8080"
 )
 
 var p = fmt.Println
@@ -62,10 +62,10 @@ func (server *Server) handleMessage() {
 			c.userName = m.userName
 			server.clients[m.userID] = c
 			server.messages <- msg
-			pf("%s joining", m.userName)
+			pf("%s joining(%s)", m.userName, addr)
 		case common.CLASSIQUE:
 
-			pf("%s %s: %s", m.time, m.userName, m.content)
+			pf("%s %s: %s(%s)", m.time, m.userName, m.content, addr)
 			server.messages <- msg
 		}
 	}
@@ -80,7 +80,7 @@ func (s *Server) parseMessage(msg string) (m Message) {
 	m.messageType = common.MessageType(messageTypeStr)
 	m.userName = stringArray[2]
 	m.content = stringArray[3]
-    m.time =  stringArray[4]
+	m.time = stringArray[4]
 	// pf("MESSAGE RECEIVED: %s \n", msg)
 	// pf("USER NAME: %s \n", stringArray [2])
 	// pf("CONTENT: %s \n", stringArray [3])

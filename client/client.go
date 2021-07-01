@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/digitalmarc/go/udp-chat/common"
 	"github.com/nu7hatch/gouuid"
+	"golang-udp-chat/common"
 )
 
 type Client struct {
@@ -116,7 +116,7 @@ func main() {
 	// }
 	// service := os.Args[1]
 	// udpAddr, err := net.ResolveUDPAddr("udp4", service)
-	udpAddr, err := net.ResolveUDPAddr("udp4", "78.242.118.156:1200")
+	udpAddr, err := net.ResolveUDPAddr("udp4", ":8080")
 	checkError(err, "main")
 
 	var c Client
